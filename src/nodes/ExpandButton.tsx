@@ -7,7 +7,7 @@ export class ExpandButton extends DecoratorBlockNode {
   __jsonContent: string;
 
   static getType(): string {
-    return "expand-button";
+    return "expand";
   }
 
   constructor(content: string, key?: NodeKey) {
@@ -19,8 +19,8 @@ export class ExpandButton extends DecoratorBlockNode {
     return new CollapseButton();
   }
 
-  static clone(_node: ExpandButton): LexicalNode {
-    return new ExpandButton(_node.__jsonContent);
+  static clone(node: ExpandButton): LexicalNode {
+    return new ExpandButton(node.__jsonContent);
   }
 
   exportJSON() {
@@ -31,6 +31,9 @@ export class ExpandButton extends DecoratorBlockNode {
     };
   }
 
+  /**
+   * expandContent replaces itself with the node stored in this.__jsonContent
+   */
   expandContent = () => {
     const node = $parseSerializedNode(JSON.parse(this.__jsonContent));
     this.insertBefore(node);
@@ -41,15 +44,16 @@ export class ExpandButton extends DecoratorBlockNode {
   decorate(editor: LexicalEditor, config: EditorConfig): JSX.Element {
     return (
       <div>
-        <Button
-          onClick={() => {
-            console.log("expand");
-            this.expandContent();
-          }}
-        >
-          ↓
-        </Button>
+        <Button onClick={this.expandContent}>↓</Button>
       </div>
     );
   }
 }
+
+export const $createExpandButton = (content: string) => {
+  return new ExpandButton(content);
+};
+
+export const $isExpandButton = (node: LexicalNode): node is ExpandButton => {
+  return node.getType() === ExpandButton.getType();
+};

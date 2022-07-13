@@ -6,9 +6,9 @@ import { createEmptyHistoryState, HistoryPlugin } from "@lexical/react/LexicalHi
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ClearEditorPlugin } from "@lexical/react/LexicalClearEditorPlugin";
-import { CustomNode } from "./nodes/CustomNode";
+import { TreeNode } from "./nodes/TreeNode";
 import { ExpandButton } from "./nodes/ExpandButton";
-import { CustomPlugin } from "./plugins/CustomPlugin";
+import { TreeNodePlugin } from "./plugins/TreeNodePlugin";
 import { CollapseButton } from "./nodes/CollapseButton";
 
 const initialState = {
@@ -53,7 +53,7 @@ export default function App() {
     <LexicalComposer
       initialConfig={{
         namespace: "test",
-        nodes: [CustomNode, CollapseButton, ExpandButton],
+        nodes: [TreeNode, CollapseButton, ExpandButton],
         editorState: JSON.stringify(initialState),
         theme: {
           custom: "custom-node",
@@ -74,7 +74,7 @@ export default function App() {
         placeholder={<div className="placeholder">Type something</div>}
       />
       <ClearEditorPlugin />
-      <CustomPlugin />
+      <TreeNodePlugin />
     </LexicalComposer>
   );
 }

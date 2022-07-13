@@ -1,12 +1,12 @@
-import { EditorConfig, ElementNode, LexicalEditor, SerializedElementNode } from "lexical";
+import { EditorConfig, ElementNode, LexicalEditor, LexicalNode, SerializedElementNode } from "lexical";
 
-export class CustomNode extends ElementNode {
+export class TreeNode extends ElementNode {
   static getType() {
     return "custom";
   }
 
   static importJSON() {
-    return new CustomNode();
+    return new TreeNode();
   }
 
   createDOM(_config: EditorConfig, _editor: LexicalEditor): HTMLElement {
@@ -19,8 +19,8 @@ export class CustomNode extends ElementNode {
     return el;
   }
 
-  static clone(node: CustomNode) {
-    return new CustomNode(node.__key);
+  static clone(node: TreeNode) {
+    return new TreeNode(node.__key);
   }
 
   updateDOM(
@@ -42,5 +42,9 @@ export class CustomNode extends ElementNode {
 }
 
 export const $createCustomNode = () => {
-  return new CustomNode();
+  return new TreeNode();
+};
+
+export const $isCustomNode = (node: LexicalNode): node is TreeNode => {
+  return node.getType() === TreeNode.getType();
 };

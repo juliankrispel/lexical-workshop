@@ -26,3 +26,4 @@ import "@lexical/react/LexicalTreeView";
 import "@lexical/react/useLexicalIsTextContentEmpty";
 import "@lexical/react/useLexicalNodeSelection";
 import "@lexical/react/useLexicalTextEntity";
+import "@lexical/utils";

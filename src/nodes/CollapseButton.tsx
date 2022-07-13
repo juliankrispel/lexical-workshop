@@ -4,7 +4,7 @@ import { ExpandButton } from "./ExpandButton";
 
 export class CollapseButton extends DecoratorNode<JSX.Element> {
   static getType(): string {
-    return "collapse-button";
+    return "collapse";
   }
 
   static importJSON(_serializedNode: SerializedLexicalNode): LexicalNode {
@@ -17,7 +17,7 @@ export class CollapseButton extends DecoratorNode<JSX.Element> {
 
   createDOM(_config: EditorConfig, _editor: LexicalEditor): HTMLElement {
     const el = document.createElement("btn");
-    const className = _config.theme.collapser;
+    const className = _config.theme[this.getType()];
     if (className != null) {
       el.className = className;
     }
@@ -34,7 +34,6 @@ export class CollapseButton extends DecoratorNode<JSX.Element> {
 
   collapseSibling = () => {
     const parent = this.getParent();
-    console.log(parent);
 
     if ($isElementNode(parent)) {
       const children = parent.getChildren().map((node) => node.exportJSON());
@@ -59,3 +58,12 @@ export class CollapseButton extends DecoratorNode<JSX.Element> {
     return false;
   }
 }
+
+export const $createCollapseButton = () => {
+  return new CollapseButton();
+};
+
+export const $isCollapseButton = (node: LexicalNode): node is CollapseButton => {
+  return node.getType() === CollapseButton.getType();
+};
+
