@@ -1,17 +1,44 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { $createTextNode, $getNodeByKey, $getSelection, $isElementNode, $isRangeSelection } from "lexical";
+import {
+  $createTextNode,
+  $getSelection,
+  $isElementNode,
+  $isRangeSelection,
+  COMMAND_PRIORITY_EDITOR,
+  SELECTION_CHANGE_COMMAND,
+} from "lexical";
 import { useEffect } from "react";
 import { $createCustomNode, TreeNode } from "../nodes/TreeNode";
 import { CollapseButton } from "../nodes/CollapseButton";
 import { mergeRegister } from "@lexical/utils";
+import { QuoteNode } from "@lexical/rich-text";
 
 export function TreeNodePlugin() {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
+    /**
+     * mergeRegister returns a callback that removes all registered
+     * listeners passed into mergeRegister
+     */
     const unregister = mergeRegister(
+      editor.registerCommand(
+        SELECTION_CHANGE_COMMAND,
+        () => {
+          /**
+           * TODO: select
+           */
+          return false;
+        },
+        COMMAND_PRIORITY_EDITOR
+      ),
+      editor.registerNodeTransform(QuoteNode, (node) => {
+        /**
+         * if we find an ExpandButton which
+         */
+      }),
       /**
-       * Ensures that a CustomNode always has a CollapseButton
+       * Ensures that a TreeNodes always has a CollapseButton
        */
       editor.registerNodeTransform(TreeNode, (node) => {
         if ($isElementNode(node)) {
@@ -23,6 +50,9 @@ export function TreeNodePlugin() {
             node.append($createTextNode(""));
           }
           const firstChild = node.getFirstChild();
+          /**
+           * Add a collapse button if there is none yet
+           */
           if (
             !children.some(
               (child) => child.getType() === CollapseButton.getType()
@@ -32,6 +62,12 @@ export function TreeNodePlugin() {
             const collapser = new CollapseButton();
             firstChild.insertBefore(collapser);
           }
+
+          // if (children.filter($isCollapseButton).length > 1) {
+          //   children.slice(1).forEach((child) => {
+          //     child.remove();
+          //   });
+          // }
         }
       })
     );

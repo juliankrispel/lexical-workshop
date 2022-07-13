@@ -31,11 +31,8 @@ const initialState = {
         ],
       },
       {
-        type: "custom",
+        type: TreeNode.getType(),
         children: [
-          {
-            type: CollapseButton.getType(),
-          },
           {
             type: "text",
             text: "Hai friends",

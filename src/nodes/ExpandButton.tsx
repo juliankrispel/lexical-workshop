@@ -3,6 +3,10 @@ import { $parseSerializedNode, DecoratorNode, EditorConfig, LexicalEditor, Lexic
 import { Button } from "../components/Button";
 import { CollapseButton } from "./CollapseButton";
 
+export type SerializedExpandButton = SerializedLexicalNode & {
+  jsonContent: string
+}
+
 export class ExpandButton extends DecoratorBlockNode {
   __jsonContent: string;
 
@@ -15,8 +19,8 @@ export class ExpandButton extends DecoratorBlockNode {
     this.__jsonContent = content;
   }
 
-  static importJSON(_serializedNode: SerializedLexicalNode): LexicalNode {
-    return new CollapseButton();
+  static importJSON(_serializedNode: SerializedExpandButton): LexicalNode {
+    return new CollapseButton(_serializedNode.jsonContent);
   }
 
   static clone(node: ExpandButton): LexicalNode {
@@ -26,6 +30,7 @@ export class ExpandButton extends DecoratorBlockNode {
   exportJSON() {
     return {
       ...super.exportJSON(),
+      content: this.__jsonContent,
       type: ExpandButton.getType(),
       version: 1,
     };

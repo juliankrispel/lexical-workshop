@@ -32,7 +32,7 @@ export class CollapseButton extends DecoratorNode<JSX.Element> {
     };
   }
 
-  collapseSibling = () => {
+  collapseParent = () => {
     const parent = this.getParent();
 
     if ($isElementNode(parent)) {
@@ -47,7 +47,7 @@ export class CollapseButton extends DecoratorNode<JSX.Element> {
   };
 
   decorate(editor: LexicalEditor, config: EditorConfig): JSX.Element {
-    return <Button onClick={this.collapseSibling}>→</Button>;
+    return <Button onClick={this.collapseParent}>→</Button>;
   }
 
   updateDOM(
