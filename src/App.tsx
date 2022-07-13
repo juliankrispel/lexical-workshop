@@ -6,8 +6,10 @@ import { createEmptyHistoryState, HistoryPlugin } from "@lexical/react/LexicalHi
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ClearEditorPlugin } from "@lexical/react/LexicalClearEditorPlugin";
-import { CollapseButton, CollapsedContent, CustomNode, NODE_COLLAPSE_BUTTON } from "./nodes/CustomNode";
+import { CustomNode } from "./nodes/CustomNode";
+import { CollapsedContent } from "./nodes/CollapsedContent";
 import { CustomPlugin } from "./plugins/CustomPlugin";
+import { CollapseButton } from "./nodes/CollapseButton";
 
 const initialState = {
   root: {
@@ -32,7 +34,7 @@ const initialState = {
         type: "custom",
         children: [
           {
-            type: NODE_COLLAPSE_BUTTON
+            type: CollapseButton.getType(),
           },
           {
             type: "text",

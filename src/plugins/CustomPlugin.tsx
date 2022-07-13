@@ -1,7 +1,8 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { $createTextNode, $getNodeByKey, $getSelection, $isElementNode, $isRangeSelection, ParagraphNode } from "lexical";
-import { useEffect, useLayoutEffect } from "react";
-import { $createCustomNode, CollapseButton, CollapsedContent, CustomNode, NODE_COLLAPSED_CONTENT, NODE_COLLAPSE_BUTTON } from "../nodes/CustomNode";
+import { $createTextNode, $getNodeByKey, $getSelection, $isElementNode, $isRangeSelection } from "lexical";
+import { useEffect } from "react";
+import { $createCustomNode, CustomNode } from "../nodes/CustomNode";
+import { CollapseButton } from "../nodes/CollapseButton";
 
 export function CustomPlugin() {
   const [editor] = useLexicalComposerContext();
