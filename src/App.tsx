@@ -6,6 +6,8 @@ import { createEmptyHistoryState, HistoryPlugin } from "@lexical/react/LexicalHi
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ClearEditorPlugin } from "@lexical/react/LexicalClearEditorPlugin";
+import { CustomNode } from "./nodes/CustomNode";
+import { CustomPlugin } from "./plugins/CustomPlugin";
 
 const initialState = {
   root: {
@@ -18,10 +20,16 @@ const initialState = {
             type: "text",
           },
           {
+            type: "linebreak",
+          },
+          {
             text: "World",
             type: "text",
           },
         ],
+      },
+      {
+        type: "custom",
       },
     ],
     type: "root",
@@ -34,8 +42,11 @@ export default function App() {
     <LexicalComposer
       initialConfig={{
         namespace: "test",
-        nodes: [],
+        nodes: [CustomNode],
         editorState: JSON.stringify(initialState),
+        theme: {
+          custom: "custom-node",
+        },
         onError: (err) => {
           console.error(err);
         },
@@ -52,6 +63,7 @@ export default function App() {
         placeholder={<div className="placeholder">Type something</div>}
       />
       <ClearEditorPlugin />
+      <CustomPlugin />
     </LexicalComposer>
   );
 }

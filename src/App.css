@@ -50,3 +50,9 @@ p {
   cursor: pointer;
   z-index: 999;
 }
+
+.custom-node {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: .5em;
+}
