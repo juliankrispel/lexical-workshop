@@ -11,7 +11,6 @@ import { useEffect } from "react";
 import { $createCustomNode, TreeNode } from "../nodes/TreeNode";
 import { CollapseButton } from "../nodes/CollapseButton";
 import { mergeRegister } from "@lexical/utils";
-import { QuoteNode } from "@lexical/rich-text";
 
 export function TreeNodePlugin() {
   const [editor] = useLexicalComposerContext();
@@ -32,11 +31,6 @@ export function TreeNodePlugin() {
         },
         COMMAND_PRIORITY_EDITOR
       ),
-      editor.registerNodeTransform(QuoteNode, (node) => {
-        /**
-         * if we find an ExpandButton which
-         */
-      }),
       /**
        * Ensures that a TreeNodes always has a CollapseButton
        */

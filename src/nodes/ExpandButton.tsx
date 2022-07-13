@@ -48,7 +48,7 @@ export class ExpandButton extends DecoratorBlockNode {
 
   decorate(editor: LexicalEditor, config: EditorConfig): JSX.Element {
     return (
-      <div>
+      <div className="expand">
         <Button onClick={this.expandContent}>↓</Button>
       </div>
     );

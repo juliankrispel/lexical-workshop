@@ -51,8 +51,22 @@ p {
   z-index: 999;
 }
 
-.custom-node {
+.custom {
   border: 1px solid #ccc;
   border-radius: 3px;
   padding: .5em;
+  padding-left: 2em;
+  position: relative;
+}
+
+.expand {
+  position: relative;
+  padding: .5em;
+  border: 1px solid #ccc;
+}
+
+.custom .toggle {
+  position: absolute;
+  left: 0;
+  top: 0;
 }

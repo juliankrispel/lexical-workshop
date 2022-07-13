@@ -12,8 +12,9 @@ export class TreeNode extends ElementNode {
   createDOM(_config: EditorConfig, _editor: LexicalEditor): HTMLElement {
     const el = document.createElement("div");
 
-    if (_config.theme.custom) {
-      el.className = _config.theme.custom;
+    const className = _config.theme[this.getType()]
+    if (className) {
+      el.className = className
     }
 
     return el;

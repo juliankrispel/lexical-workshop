@@ -53,7 +53,8 @@ export default function App() {
         nodes: [TreeNode, CollapseButton, ExpandButton],
         editorState: JSON.stringify(initialState),
         theme: {
-          custom: "custom-node",
+          custom: "custom",
+          expand: 'expand',
         },
         onError: (err) => {
           console.error(err);
