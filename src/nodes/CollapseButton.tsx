@@ -11,6 +11,10 @@ export class CollapseButton extends DecoratorNode<JSX.Element> {
     return new CollapseButton();
   }
 
+  static clone(node: CollapseButton) {
+    return new CollapseButton(node.__key);
+  }
+
   createDOM(_config: EditorConfig, _editor: LexicalEditor): HTMLElement {
     const el = document.createElement("btn");
     const className = _config.theme.collapser;

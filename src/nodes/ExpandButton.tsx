@@ -1,8 +1,9 @@
+import { DecoratorBlockNode } from "@lexical/react/LexicalDecoratorBlockNode";
 import { $parseSerializedNode, DecoratorNode, EditorConfig, LexicalEditor, LexicalNode, NodeKey, SerializedLexicalNode } from "lexical";
 import { Button } from "../components/Button";
 import { CollapseButton } from "./CollapseButton";
 
-export class ExpandButton extends DecoratorNode<JSX.Element> {
+export class ExpandButton extends DecoratorBlockNode {
   __jsonContent: string;
 
   static getType(): string {
@@ -10,7 +11,7 @@ export class ExpandButton extends DecoratorNode<JSX.Element> {
   }
 
   constructor(content: string, key?: NodeKey) {
-    super(key);
+    super(key as any);
     this.__jsonContent = content;
   }
 
@@ -22,19 +23,10 @@ export class ExpandButton extends DecoratorNode<JSX.Element> {
     return new ExpandButton(_node.__jsonContent);
   }
 
-  createDOM(_config: EditorConfig, _editor: LexicalEditor): HTMLElement {
-    const el = document.createElement("btn");
-    const className = _config.theme.collapser;
-    if (className != null) {
-      el.className = className;
-    }
-
-    return el;
-  }
-
-  exportJSON(): SerializedLexicalNode {
+  exportJSON() {
     return {
-      type: this.getType(),
+      ...super.exportJSON(),
+      type: ExpandButton.getType(),
       version: 1,
     };
   }
@@ -44,20 +36,20 @@ export class ExpandButton extends DecoratorNode<JSX.Element> {
     this.insertBefore(node);
     this.selectPrevious();
     this.remove();
-  }
-
-  updateDOM(
-    _prevNode: unknown,
-    _dom: HTMLElement,
-    _config: EditorConfig
-  ): boolean {
-    return false;
-  }
+  };
 
   decorate(editor: LexicalEditor, config: EditorConfig): JSX.Element {
-    return <Button onClick={() => {
-      console.log('expand')
-      this.expandContent()
-    }} >↓</Button>;
+    return (
+      <div>
+        <Button
+          onClick={() => {
+            console.log("expand");
+            this.expandContent();
+          }}
+        >
+          ↓
+        </Button>
+      </div>
+    );
   }
 }
