@@ -7,7 +7,7 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ClearEditorPlugin } from "@lexical/react/LexicalClearEditorPlugin";
 import { CustomNode } from "./nodes/CustomNode";
-import { CollapsedContent } from "./nodes/CollapsedContent";
+import { ExpandButton } from "./nodes/ExpandButton";
 import { CustomPlugin } from "./plugins/CustomPlugin";
 import { CollapseButton } from "./nodes/CollapseButton";
 
@@ -53,7 +53,7 @@ export default function App() {
     <LexicalComposer
       initialConfig={{
         namespace: "test",
-        nodes: [CustomNode, CollapseButton, CollapsedContent],
+        nodes: [CustomNode, CollapseButton, ExpandButton],
         editorState: JSON.stringify(initialState),
         theme: {
           custom: "custom-node",

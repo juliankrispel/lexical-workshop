@@ -16,7 +16,6 @@ export function CustomPlugin() {
   
           switch (type) {
             case "created":
-              
               if ($isElementNode(node)) {
                 const children = node.getChildren()
                 /**

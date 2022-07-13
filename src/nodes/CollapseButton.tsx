@@ -1,10 +1,10 @@
 import { $isElementNode, DecoratorNode, EditorConfig, LexicalEditor, LexicalNode, SerializedLexicalNode } from "lexical";
-import { Button } from "./CustomNode";
-
+import { Button } from "../components/Button";
+import { ExpandButton } from "./ExpandButton";
 
 export class CollapseButton extends DecoratorNode<JSX.Element> {
   static getType(): string {
-    return 'collapse-button';
+    return "collapse-button";
   }
 
   static importJSON(_serializedNode: SerializedLexicalNode): LexicalNode {
@@ -29,22 +29,22 @@ export class CollapseButton extends DecoratorNode<JSX.Element> {
   }
 
   collapseSibling = () => {
-    const sibling = this.getNextSibling();
+    const parent = this.getParent();
+    console.log(parent);
 
-    if ($isElementNode(sibling)) {
-      const children = sibling.getChildren().map((node) => node.exportJSON());
-      const serializedNode = sibling.exportJSON();
+    if ($isElementNode(parent)) {
+      const children = parent.getChildren().map((node) => node.exportJSON());
+      const serializedNode = parent.exportJSON();
       serializedNode.children = children;
-      // const collapsedNode = new(JSON.stringify(serializedNode))
-      // this.insertBefore(collapsedNode);
-      // sibling?.remove();
-      // this.selectPrevious();
-      // this.remove();
+      const expandedButton = new ExpandButton(JSON.stringify(serializedNode));
+      parent.insertBefore(expandedButton);
+      parent.selectPrevious();
+      parent.remove();
     }
   };
 
   decorate(editor: LexicalEditor, config: EditorConfig): JSX.Element {
-    return <Button />;
+    return <Button onClick={this.collapseSibling}>→</Button>;
   }
 
   updateDOM(

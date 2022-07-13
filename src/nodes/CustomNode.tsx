@@ -1,9 +1,5 @@
 import { EditorConfig, ElementNode, LexicalEditor, SerializedElementNode } from "lexical";
 
-export const Button = () => {
-  return <span className="toggle">➡</span>;
-}
-
 export class CustomNode extends ElementNode {
   static getType() {
     return "custom";
