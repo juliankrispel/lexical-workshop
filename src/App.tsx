@@ -6,7 +6,7 @@ import { createEmptyHistoryState, HistoryPlugin } from "@lexical/react/LexicalHi
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ClearEditorPlugin } from "@lexical/react/LexicalClearEditorPlugin";
-import { CustomNode } from "./nodes/CustomNode";
+import { CollapseButton, CollapsedContent, CustomNode, NODE_COLLAPSE_BUTTON } from "./nodes/CustomNode";
 import { CustomPlugin } from "./plugins/CustomPlugin";
 
 const initialState = {
@@ -30,6 +30,15 @@ const initialState = {
       },
       {
         type: "custom",
+        children: [
+          {
+            type: NODE_COLLAPSE_BUTTON
+          },
+          {
+            type: "text",
+            text: "Hai friends",
+          },
+        ],
       },
     ],
     type: "root",
@@ -42,7 +51,7 @@ export default function App() {
     <LexicalComposer
       initialConfig={{
         namespace: "test",
-        nodes: [CustomNode],
+        nodes: [CustomNode, CollapseButton, CollapsedContent],
         editorState: JSON.stringify(initialState),
         theme: {
           custom: "custom-node",
